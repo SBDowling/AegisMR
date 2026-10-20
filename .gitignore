@@ -1,0 +1,76 @@
+# ---------------------------------------------------------------
+# AegisMR: combined .gitignore (Unity + Python + Blender)
+# Put this file in the ROOT of the repo (next to README.md).
+# ---------------------------------------------------------------
+
+# ----- Unity (these folders are regenerated; never commit them) -----
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+[Rr]ecordings/
+
+# Unity-generated project files (rebuilt by Unity)
+*.csproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+sysinfo.txt
+crashlytics-build.properties
+
+# Unity build outputs
+*.apk
+*.aab
+*.unitypackage
+*.app
+
+# Editors
+.vs/
+.idea/
+.vscode/
+
+# ----- Signing keys and secrets (NEVER commit these) -----
+*.keystore
+*.jks
+.env
+*.env
+secrets.*
+
+# ----- Python backend -----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+
+# ----- Blender -----
+*.blend1
+*.blend2
+
+# ----- Packet captures -----
+# Only small SYNTHETIC captures made with Scapy should be committed.
+# Never commit captures recorded on a real network (personal data).
+*.pcapng
+
+# ----- Operating system -----
+.DS_Store
+Thumbs.db
+desktop.ini
