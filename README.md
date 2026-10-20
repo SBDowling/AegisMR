@@ -56,7 +56,7 @@ AegisMR combines Mixed Reality technologies, real-time network simulation tools,
 <h3>Backend Technologies</h3>
 
 <ul>
-  <li><strong>Python</strong> - Serves as the network simulation engine responsible for packet generation, cybersecurity scenarios, data processing, and educational content delivery.</li>
+  <li><strong>Python</strong> - Serves as the network simulation engine responsible for packet generation, network traffic simulation, cybersecurity scenarios, and communication with the Unity frontend.</li>
 
   <li><strong>Scapy</strong> - Used for packet creation, packet manipulation, traffic generation, and cybersecurity-focused network simulations.</li>
 
@@ -90,7 +90,7 @@ AegisMR transforms traditionally abstract networking and cybersecurity concepts 
 
   <li><strong>Packet Inspection</strong> - Examine packet information and network traffic to better understand communication processes.</li>
 
-  <li><strong>TCP/IP Communication Demonstrations</strong> - Visualise fundamental networking concepts and communication protocols.</li>
+  <li><strong>TCP/IP Communication Demonstrations</strong> - Demonstrate how devices communicate using fundamental networking protocols and packet-based communication.</li>
 
   <li><strong>TCP Three-Way Handshake Simulation</strong> - Observe the process of connection establishment between clients and servers.</li>
 
@@ -108,3 +108,22 @@ AegisMR transforms traditionally abstract networking and cybersecurity concepts 
 
   <li><strong>Assessment & Evaluation</strong> - Supports the collection of feedback and learning outcomes for educational evaluation purposes.</li>
 </ul>
+
+<h2 align="center">📂 Repository Structure</h2>
+
+<pre>
+AegisMR 
+│
+├── Assets/                    # Unity Project Assets
+├── Backend/                   # Python Backend
+├── Blender/                   # Source 3D Models & Assets
+├── Docs/                      # Project Documentation
+├── Research/
+│   ├── Papers/                # Academic Papers
+│   ├── References/            # Citations & Bibliography
+│   ├── Notes/                 # Research Notes
+│   └── Literature Review/     # Literature Review Materials
+├── Tests/                     # Test Plans & Results
+├── README.md
+└── .gitignore
+</pre>
