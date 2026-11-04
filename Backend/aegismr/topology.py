@@ -32,6 +32,9 @@ class Topology:
                 raise ValueError(f"Unknown device '{name}'.")
         if device_b in self.neighbours(device_a):
             raise ValueError(f"'{device_a}' and '{device_b}' are already linked.")
+        for name in (device_a, device_b):
+            if self.free_ports(name) == 0:
+                raise ValueError(f"'{name}' has no free ports.")
         link = Link(device_a, device_b)
         self.links.append(link)
         return link
@@ -66,3 +69,27 @@ class Topology:
                     visited.add(neighbour)
                     queue.append(path + [neighbour])
         return None
+
+    def free_ports(self, name: str) -> int:
+        """Return how many unused ports a device has left."""
+        return self.devices[name].ports - len(self.neighbours(name))
+
+    def remove_link(self, device_a: str, device_b: str) -> None:
+        """Unplug the cable between two devices, in either order."""
+        for link in self.links:
+            if {link.device_a, link.device_b} == {device_a, device_b}:
+                self.links.remove(link)
+                return
+        raise ValueError(f"'{device_a}' and '{device_b}' are not linked.")
+
+    def remove_device(self, name: str) -> None:
+        """Delete a device and unplug every cable attached to it."""
+        if name not in self.devices:
+            raise ValueError(f"Unknown device '{name}'.")
+        self.links = [
+            link for link in self.links
+            if name not in (link.device_a, link.device_b)
+        ]
+        del self.devices[name]
+    
+    

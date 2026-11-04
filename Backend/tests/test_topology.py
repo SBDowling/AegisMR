@@ -72,3 +72,40 @@ def test_find_path_pc_to_server(small_network):
 def test_find_path_unreachable(small_network):
     """An unconnected device has no path, so None is returned."""
     assert small_network.find_path("PC1", "LT1") is None
+
+# ----- Ports -----
+
+def test_pc_has_only_one_port(small_network):
+    """PC1 is already plugged into SW1, so it cannot take a second cable."""
+    with pytest.raises(ValueError):
+        small_network.add_link("PC1", "LT1")
+
+def test_free_ports(small_network):
+    """SW1 has 8 ports and 2 cables (PC1 and R1) already connected, so 6 remain free."""
+    assert small_network.free_ports("SW1") == 6
+
+# ----- Removing links and devices -----
+
+def test_remove_link(small_network):
+    """Unplugging SW1-R1 cuts the PC off from the server."""
+    # Written in reverse order on purpose, as links have no direction
+    small_network.remove_link("R1", "SW1")
+    assert "R1" not in small_network.neighbours("SW1")
+    assert small_network.find_path("PC1", "SRV1") is None
+
+def test_remove_missing_link_rejected(small_network):
+    """You cannot unplug a cable that does not exist."""
+    with pytest.raises(ValueError):
+        small_network.remove_link("PC1", "SRV1")
+
+def test_remove_device_unplugs_its_links(small_network):
+    """Deleting the switch also removes the cables attached to it."""
+    small_network.remove_device("SW1")
+    assert "SW1" not in small_network.devices
+    assert small_network.neighbours("PC1") == []
+    assert small_network.neighbours("R1") == ["SRV1"]
+
+def test_remove_unknown_device_rejected(small_network):
+    """You cannot delete a device that is not in the network."""
+    with pytest.raises(ValueError):
+        small_network.remove_device("NOPE")
