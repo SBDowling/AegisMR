@@ -4,27 +4,6 @@ from aegismr.devices import Device, DeviceType
 from aegismr.topology import Link, Topology
 
 
-@pytest.fixture
-def small_network():
-    """Build a sample network shared by the tests below.
-
-    PC1 --- SW1 --- R1 --- SRV1      LT1 (not connected)
-    """
-    topology = Topology()
-    topology.add_device(Device("PC1", DeviceType.PC, "192.168.1.10"))
-    # Switches work at Layer 2, so SW1 has no IP address
-    topology.add_device(Device("SW1", DeviceType.SWITCH))
-    topology.add_device(Device("R1", DeviceType.ROUTER, "192.168.1.1"))
-    # Server is on a different subnet, so traffic must go through R1
-    topology.add_device(Device("SRV1", DeviceType.SERVER, "10.0.0.5"))
-    # Laptop is added but never linked, to test unreachable devices
-    topology.add_device(Device("LT1", DeviceType.LAPTOP, "192.168.1.20"))
-    topology.add_link("PC1", "SW1")
-    topology.add_link("SW1", "R1")
-    topology.add_link("R1", "SRV1")
-    return topology
-
-
 # ----- Link validation -----
 
 def test_link_to_self_rejected():

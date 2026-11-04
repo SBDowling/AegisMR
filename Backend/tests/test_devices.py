@@ -53,3 +53,17 @@ def test_zero_ports_rejected():
     """A device with no ports must never be connected."""
     with pytest.raises(ValueError):
         Device(name="PC1", device_type=DeviceType.PC, ports=0)
+
+def test_mac_address_stored_lowercase():
+    """MACs are normalised to lowercase so comparisons are liable."""
+    device = Device(
+        name="PC1",
+        device_type=DeviceType.PC,
+        mac_address="02:00:00:00:00:01"
+    )
+    assert device.mac_address == "02:00:00:00:00:01"
+
+def test_invalid_mac_address_rejected():
+    """Anything that is not six hex pairs is rejected"""
+    with pytest.raises(ValueError):
+        Device(name="PC1", device_type=DeviceType.PC, mac_address="not-a-mac")
