@@ -28,4 +28,9 @@ public class BackendClient : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        // Close the connection when Play mode stops
+        socket?.Dispose();
+    }
 }
