@@ -31,15 +31,26 @@ public class BackendClient : MonoBehaviour
         await ReceiveLoop();
     }
 
-    // Waits for one message from the server and logs it as text
+    // Keeps reading messages from the server until the connection closes
     private async Task ReceiveLoop()
     {
         var buffer = new byte[8192];
         try
         {
-            var result = await socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-            string text = Encoding.UTF8.GetString(buffer, 0, result.Count);
-            Debug.Log($"Received: {text}");
+            while (socket.State == WebSocketState.Open)
+            {
+                var result = await socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+
+                // The server said goodbye, so stop listening
+                if (result.MessageType == WebSocketMessageType.Close)
+                {
+                    Debug.Log("The server closed the connection...");
+                    return;
+                }
+
+                string text = Encoding.UTF8.GetString(buffer, 0, result.Count);
+                Debug.Log($"Received: {text}");
+            }
         }
         catch (Exception e)
         {
