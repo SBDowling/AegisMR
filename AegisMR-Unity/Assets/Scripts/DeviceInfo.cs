@@ -53,5 +53,12 @@ public class DeviceInfo : MonoBehaviour
     private void OnReleased(SelectExitEventArgs args)
     {
         Debug.Log($"Released {deviceName}");
+        // Short and still means a tap, otherwise it was a normal grab
+        float heldFor = Time.time - grabStartTime;
+        float movedBy = Vector3.Distance(grabStartPosition, transform.position);
+        if (heldFor <= maxTapSeconds && movedBy <= maxTapDistance)
+        {
+            Debug.Log($"Tapped {deviceName}");
+        }
     }
 }
