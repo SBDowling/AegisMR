@@ -34,13 +34,13 @@ public class DeviceInfo : MonoBehaviour
         grab.selectExited.RemoveListener(OnReleased);
     }
 
-    // Called by XRI when a hand or controller grabs the device
+    // Called by XR Interactable when a hand or controller grabs the device
     private void OnGrabbed(SelectEnterEventArgs args)
     {
         Debug.Log($"Grabbed {deviceName}");
     }
 
-    // Called by XRI when the device is let go
+    // Called by XR Interactable when the device is let go
     private void OnReleased(SelectExitEventArgs args)
     {
         Debug.Log($"Released {deviceName}");
