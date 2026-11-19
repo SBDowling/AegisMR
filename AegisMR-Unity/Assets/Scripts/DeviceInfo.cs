@@ -12,6 +12,12 @@ public class DeviceInfo : MonoBehaviour
     [SerializeField] private string ipAddress = "192.168.1.10";
     [SerializeField] private string macAddress = "02:00:00:00:00:01";
 
+    // A quick pinch that barely moves the device counts as a tap
+    [SerializeField] private float maxTapSeconds = 0.4f;
+    [SerializeField] private float maxTapDistance = 0.02f;
+    private float grabStartTime;
+    private Vector3 grabStartPosition;
+
     private XRGrabInteractable grab;
 
     // Find the grab component on this device once
@@ -38,6 +44,9 @@ public class DeviceInfo : MonoBehaviour
     private void OnGrabbed(SelectEnterEventArgs args)
     {
         Debug.Log($"Grabbed {deviceName}");
+        // Remember when and where the grab started
+        grabStartTime = Time.time;
+        grabStartPosition = transform.position;
     }
 
     // Called by XR Interactable when the device is let go
