@@ -280,3 +280,7 @@ MonoBehaviour:
   deviceType: pc
   ipAddress: 192.168.1.10
   macAddress: 02:00:00:00:00:01
+  maxTapSeconds: 0.4
+  maxTapDistance: 0.02
+  popupPrefab: {fileID: 4655963770234963316, guid: 08e3e39e733d24340a80516867bef1f6, type: 3}
+  popupHeight: 0.3

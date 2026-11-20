@@ -18,6 +18,11 @@ public class DeviceInfo : MonoBehaviour
     private float grabStartTime;
     private Vector3 grabStartPosition;
 
+    // The info panel shown above this device when it is tapped
+    [SerializeField] private DevicePopup popupPrefab;
+    [SerializeField] private float popupHeight = 0.3f;
+    private DevicePopup popup;
+
     private XRGrabInteractable grab;
 
     // Find the grab component on this device once
@@ -59,6 +64,29 @@ public class DeviceInfo : MonoBehaviour
         if (heldFor <= maxTapSeconds && movedBy <= maxTapDistance)
         {
             Debug.Log($"Tapped {deviceName}");
+            TogglePopup();
+        }
+    }
+
+    // Each tap shows the popup, the next tap hides it again
+    private void TogglePopup()
+    {
+        // Make the popup the first time this device is tapped
+        if (popup == null)
+        {
+            popup = Instantiate(popupPrefab);
+            popup.SetDetails(deviceName, deviceType, ipAddress, macAddress);
+            popup.gameObject.SetActive(false);
+        }
+
+        bool show = !popup.gameObject.activeSelf;
+        popup.gameObject.SetActive(show);
+
+        // Put it above the device, turned to face the learner
+        if (show)
+        {
+            popup.transform.position = transform.position + Vector3.up * popupHeight;
+            popup.transform.rotation = Quaternion.LookRotation(popup.transform.position - Camera.main.transform.position);
         }
     }
 }
