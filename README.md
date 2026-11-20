@@ -112,18 +112,24 @@ AegisMR transforms traditionally abstract networking and cybersecurity concepts 
 <h2 align="center">📂 Repository Structure</h2>
 
 <pre>
-AegisMR 
+AegisMR
 │
-├── Assets/                    # Unity Project Assets
+├── AegisMR-Unity/             # Unity 6 MR Project
+│   └── Assets/
+│       ├── Models/            # Exported FBX Device Models
+│       ├── Prefabs/           # Grabbable Devices & UI Popup
+│       ├── Scenes/            # Main MR Scene
+│       └── Scripts/           # C# Scripts (Backend Link, Devices, Popup)
 ├── Backend/                   # Python Backend
-├── Blender/                   # Source 3D Models & Assets
+│   ├── aegismr/               # Devices, Topology, Packets & WebSocket Server
+│   └── tests/                 # pytest Test Suite
+├── Blender/                   # Source 3D Models (.blend)
 ├── Docs/                      # Project Documentation
 ├── Research/
-│   ├── Papers/                # Academic Papers
 │   ├── References/            # Citations & Bibliography
-│   ├── Notes/                 # Research Notes
-│   └── Literature Review/     # Literature Review Materials
+│   └── Notes/                 # Research Notes
 ├── Tests/                     # Test Plans & Results
 ├── README.md
+├── .gitattributes             # Git LFS Rules for Models
 └── .gitignore
 </pre>
